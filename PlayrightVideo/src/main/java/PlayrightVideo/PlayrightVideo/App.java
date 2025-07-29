@@ -12,7 +12,11 @@ public class App
     public static void main(String[] args) 
     {
     	String 
-    		url = args[args.length-2],
+    		url = args[args.length-6],//TODO use a command line builder. consider integrating with other "ApplicationBuilder" project.
+    		command = args[args.length-5],
+    		command2 = args[args.length-4],
+    		command3 = args[args.length-3],
+    		command4 = args[args.length-2],
     		sourceFile = args[args.length-1];
     	
         try (Playwright playwright = Playwright.create()) 
@@ -20,7 +24,8 @@ public class App
         	LaunchOptions lo = new LaunchOptions();
             Browser browser = playwright.firefox().launch(lo);
             String writeString = navigateAndReturnContent(browser, url);
-            writeFile(sourceFile, writeString);
+            sourceFile = writeFile(sourceFile, writeString);
+            buildCsv(new String [] {command, command2, command3, command4+sourceFile});
         }
     }
     
@@ -35,7 +40,7 @@ public class App
         return page.content();
     }
     
-    private static void writeFile(String sourceFile, String writeString)
+    private static String writeFile(String sourceFile, String writeString)
     {
     	Calendar cal = Calendar.getInstance();
     	String suffix = "_";
@@ -56,6 +61,19 @@ public class App
 			FileWriter fw = new FileWriter(sourceFile);
 			fw.write(writeString);
 			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	sourceFile = " " + sourceFile.replaceAll("\\\\", "/").replaceAll("C:", "/c");
+    	return sourceFile;
+    }
+    
+    private static void buildCsv(String ... commandArgs)
+    {
+    	for(String s : commandArgs)
+    		System.out.println(s);
+    	try {
+			CommandExecutor.executeProcess(true, commandArgs);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
