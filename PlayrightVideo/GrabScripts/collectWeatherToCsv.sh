@@ -1,4 +1,10 @@
 #!/bin/bash
 cd "$(dirname "$0")"
-./grabWeather.sh
-./parseWeather.sh "`ls -ltr ../GrabFolder/Weather/weather_grab*.html | awk '{print $NF}' | tail -1`"
+fle="$1"
+if [ -z $fle ]
+then
+	echo "no file passed."
+	exit
+fi
+./grabWeather.sh "$fle"
+./parseWeather.sh "$fle"
