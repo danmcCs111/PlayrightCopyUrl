@@ -2,7 +2,6 @@ package PlayrightVideo.PlayrightVideo;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Calendar;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
@@ -23,52 +22,36 @@ public class App
         {
         	LaunchOptions lo = new LaunchOptions();
             Browser browser = playwright.firefox().launch(lo);
-            String writeString = navigateAndReturnContent(browser, url);
-            sourceFile = writeFile(sourceFile, writeString);
+            String contentString = navigateAndReturnPage(browser, url).content();
+            sourceFile = writeFile(sourceFile, contentString);
             buildCsv(new String [] {command, command2, command3, command4+sourceFile});
         }
     }
     
-    private static String navigateAndReturnContent(Browser browser, String url)
+    public static Page navigateAndReturnPage(Browser browser, String url)
     {
     	Page page = browser.newPage();
         page.navigate(url);
         page.waitForLoadState();
-        System.out.println(page.content());
-        System.out.println(page.url());
-        
-        return page.content();
+        return page;
     }
     
-    private static String writeFile(String sourceFile, String writeString)
+    public static String writeFile(String sourceFilePath, String contentString)
     {
-    	Calendar cal = Calendar.getInstance();
-    	String suffix = "_";
-    	suffix += cal.get(Calendar.YEAR) + "_";
-    	suffix += cal.get(Calendar.MONTH) + 1 + "_";
-    	suffix += cal.get(Calendar.DAY_OF_MONTH)+ "_";
-    	suffix += cal.get(Calendar.HOUR)+ "_";
-    	suffix += cal.get(Calendar.MINUTE);
-    	
-    	if(!sourceFile.endsWith(".html"))
-    	{
-    		sourceFile += ".html";
-    	}
-    	
-    	sourceFile = sourceFile.replace(".html", suffix + ".html");
-    	
     	try {
-			FileWriter fw = new FileWriter(sourceFile);
-			fw.write(writeString);
+			FileWriter fw = new FileWriter(sourceFilePath);
+			fw.write(contentString);
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	sourceFile = " " + sourceFile.replaceAll("\\\\", "/").replaceAll("C:", "/c");
-    	return sourceFile;
+    	sourceFilePath = " " + sourceFilePath.replaceAll("\\\\", "/").replaceAll("C:", "/c");
+    	System.out.println(sourceFilePath);
+    	
+    	return sourceFilePath;
     }
     
-    private static void buildCsv(String ... commandArgs)
+    public static void buildCsv(String ... commandArgs)
     {
     	for(String s : commandArgs)
     		System.out.println(s);
