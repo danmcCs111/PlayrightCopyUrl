@@ -29,7 +29,7 @@ public class ZipToGeoCode
 		{
 			LaunchOptions lo = new LaunchOptions();
 			Browser browser = playwright.firefox().launch(lo);
-			Page page = App.navigateAndReturnPage(browser, URL);
+			Page page = PlayrightUtil.navigateAndReturnPage(browser, URL);
 			Locator l = page.locator(TEXT_BOX);
 			l.fill(zipStr);
 			
