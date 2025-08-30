@@ -8,15 +8,22 @@ import com.microsoft.playwright.BrowserType.LaunchOptions;
 
 public class App 
 {
+	private static final String 
+		COMMAND_EXEC = "C:\\Program Files\\Git\\git-bash.exe",
+		OPTION1 = "-c"; 
+	
     public static void main(String[] args) 
     {
+    	//"https://forecast.weather.gov/MapClick.php?lat=39.9889&lon=-82.9874&unit=0&lg=english&FcstType=graphical"
     	String 
-    		url = args[args.length-6],//TODO use a command line builder. consider integrating with other "ApplicationBuilder" project.
-    		command = args[args.length-5],
-    		command2 = args[args.length-4],
-    		command3 = args[args.length-3],
-    		command4 = args[args.length-2],
-    		sourceFile = args[args.length-1];
+    		url = args[args.length-4],//TODO use a command line builder. consider integrating with other "ApplicationBuilder" project.
+    		command = args[args.length-3],
+    		sourceFile = args[args.length-2],
+    		zipCode = args[args.length-1];
+    	
+    	String [] latLong = ZipToGeoCode.collectCoordinates(zipCode);
+    	url = url.replaceFirst("lat=&", "lat=" + latLong[0].strip() + "&");
+    	url = url.replaceFirst("lon=&", "lon=" + latLong[1].strip() + "&");
     	
         try (Playwright playwright = Playwright.create()) 
         {
@@ -24,7 +31,7 @@ public class App
             Browser browser = playwright.firefox().launch(lo);
             String contentString = navigateAndReturnPage(browser, url).content();
             sourceFile = writeFile(sourceFile, contentString);
-            buildCsv(new String [] {command, command2, command3, command4+sourceFile});
+            buildCsv(new String [] {COMMAND_EXEC, OPTION1, command+sourceFile});
         }
     }
     

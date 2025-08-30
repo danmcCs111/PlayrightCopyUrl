@@ -1,10 +1,11 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 fle="$1"
-if [ -z $fle ]
+zip="$2"
+if [[ -z "$fle" || -z "$zip" ]]
 then
-	echo "no file passed."
+	echo "no file or zip passed."
 	exit
 fi
-./grabWeather.sh "$fle"
-./parseWeather.sh "$fle"
+./grabWeather.sh "$fle" "$zip"
+./parseWeather.sh "$fle" "$zip"

@@ -1,8 +1,9 @@
 #!/bin/bash
 fle="$1"
-if [ -z $fle ]
+zip="$2"
+if [[ -z "$fle" || -z "$zip" ]]
 then
-	echo "no file passed."
+	echo "no file or zip passed."
 	exit
 fi
 fle_save="`ls $1 | sed 's/.html/.csv/g'`"

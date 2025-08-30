@@ -1,10 +1,11 @@
 #/bin/bash
 cd "$(dirname "$0")"
 fle="$1"
-if [ -z $fle ]
+zip="$2"
+if [[ -z "$fle" || -z "$zip" ]]
 then
-	echo "no file passed."
+	echo "no file or zip passed."
 	exit
 fi
 echo $fle
-java -jar ../playright_copy_url.jar npx playwright codegen demo.playwright.dev/todomvc "https://forecast.weather.gov/MapClick.php?lat=39.9889&lon=-82.9874&unit=0&lg=english&FcstType=graphical" "C:\Program Files\Git\git-bash.exe" "-c" "-i" "/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/GrabScripts/parseWeather.sh" "$fle"
+java -jar ../playright_copy_url.jar npx playwright codegen demo.playwright.dev/todomvc "https://forecast.weather.gov/MapClick.php?lat=&lon=&unit=0&lg=english&FcstType=graphical" "/c/Users/danie/codebase/danmcCs111/PlayrightCopyUrl/PlayrightVideo/GrabScripts/parseWeather.sh" "$fle" "$zip"
