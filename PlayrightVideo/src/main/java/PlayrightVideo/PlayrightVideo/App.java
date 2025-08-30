@@ -14,9 +14,8 @@ public class App
 	
     public static void main(String[] args) 
     {
-    	//"https://forecast.weather.gov/MapClick.php?lat=39.9889&lon=-82.9874&unit=0&lg=english&FcstType=graphical"
     	String 
-    		url = args[args.length-4],//TODO use a command line builder. consider integrating with other "ApplicationBuilder" project.
+    		url = args[args.length-4],
     		command = args[args.length-3],
     		sourceFile = args[args.length-2],
     		zipCode = args[args.length-1];
