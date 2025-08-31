@@ -2,9 +2,13 @@ package PlayrightVideo.PlayrightVideo;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Locator.ScreenshotOptions;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 
 public interface PlayrightUtil 
 {
@@ -15,6 +19,23 @@ public interface PlayrightUtil
         page.waitForLoadState();
         return page;
     }
+	
+	public static Page navigateAndReturnScreenshotPage(Browser browser, String url, String path)
+    {
+    	Page page = browser.newPage();
+        page.navigate(url);
+        page.waitForLoadState();
+        
+        Locator locator = page.getByRole(AriaRole.IMG);
+    	ScreenshotOptions screenshotOptions = new ScreenshotOptions();
+    	screenshotOptions.setPath(Paths.get(path));
+    	 
+    	locator.screenshot(screenshotOptions);
+        
+        return page;
+    }
+	
+	
 	
 	public static Page tubiCollectUrls(Browser browser, String baseUrl)
     {
