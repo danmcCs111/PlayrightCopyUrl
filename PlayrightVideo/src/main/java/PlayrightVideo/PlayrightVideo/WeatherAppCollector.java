@@ -6,7 +6,7 @@ import com.microsoft.playwright.BrowserType.LaunchOptions;
 public class WeatherAppCollector
 {
 	private static final String 
-		COMMAND_EXEC = "C:\\Program Files\\Git\\git-bash.exe",
+		COMMAND_EXEC = "C:\\Program Files\\Git\\git-bash.exe",//TODO. OS detection
 		OPTION1 = "-c"; 
 	
     public static void main(String[] args) 
