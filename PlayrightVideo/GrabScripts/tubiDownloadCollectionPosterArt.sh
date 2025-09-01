@@ -1,9 +1,7 @@
 #!/bin/bash
 
 fileName="C:\\Users\\danie\\codebase\\danmcCs111\\PlayrightCopyUrl\\PlayrightVideo\\GrabFolder\\Tubi\\images\\"
-fileNameTmp="C:\\Users\\danie\\codebase\\danmcCs111\\PlayrightCopyUrl\\PlayrightVideo\\GrabFolder\\Tubi\\"
-
-#movies=`ls *.url | xargs egrep -o URL=.* | sed 's/URL=//g' | sed 's/^.*://g'`
+fileNameTmp="C:\\Users\\danie\\codebase\\danmcCs111\\PlayrightCopyUrl\\PlayrightVideo\\GrabFolder\\Tubi\\tmp\\"
 
 movies=`ls ../GrabFolder/Tubi/*.url`
 
