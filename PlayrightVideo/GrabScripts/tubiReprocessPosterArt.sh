@@ -1,4 +1,6 @@
 #!/bin/bash
+crDir=`pwd`
+cd "$(dirname "$0")"
 
 movies=`diff  <(ls -1 ../GrabFolder/Tubi/ | sed s/.url//g) <( ls -1 ../GrabFolder/Tubi/images/ | sed s/.png//g) | egrep "^<|^>" | sed "s/[<>]//g"`
 fileName="C:\\Users\\danie\\codebase\\danmcCs111\\PlayrightCopyUrl\\PlayrightVideo\\GrabFolder\\Tubi\\images\\"
@@ -20,3 +22,4 @@ do
 
 	count=$(( $count + 1))
 done
+cd $crDir
