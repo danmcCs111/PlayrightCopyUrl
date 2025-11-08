@@ -4,8 +4,8 @@ fileName=$1
 fileNameTmp=$2
 mov=$3
 
-movTmp=`echo $mov | sed "s/..\/GrabFolder\/Tubi\///g"`
-mov="../GrabFolder/Tubi/"$movTmp
+movTmp=`echo $mov | sed "s/..\/..\/GrabFolder\/Roku\///g"`
+mov="../../GrabFolder/Roku/"$movTmp
 
 if [ ! -f $mov ]; then
 	echo "file not found! (" $mov ")"
@@ -18,9 +18,9 @@ fileNameTmp=$fileNameTmp$movTmp
 
 echo $url $movSave $movTmp $mov
 
-java -cp ../playright_copy_url.jar PlayrightVideo.PlayrightVideo.TubiSingleCollect npx playwright codegen demo.playwright.dev/todomvc $url $fileNameTmp
+java -cp ../../playright_copy_url.jar PlayrightVideo.PlayrightVideo.TubiSingleCollect npx playwright codegen demo.playwright.dev/todomvc $url $fileNameTmp
 poster=`egrep -o "\"posterarts\"\:\[\"https:[^\".]*canvas-lb.tubitv.com[^\".]*" $fileNameTmp | sed 's/\u002F//g' | grep -o https.*`
 
-java -cp ../playright_copy_url.jar PlayrightVideo.PlayrightVideo.TubiDownloadPosterArt npx playwright codegen demo.playwright.dev/todomvc $poster "$fileName" $movSave
+java -cp ../../playright_copy_url.jar PlayrightVideo.PlayrightVideo.TubiDownloadPosterArt npx playwright codegen demo.playwright.dev/todomvc $poster "$fileName" $movSave
 
 rm $fileNameTmp
