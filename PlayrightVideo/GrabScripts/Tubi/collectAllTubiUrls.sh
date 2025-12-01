@@ -8,9 +8,35 @@ fileName2="../../GrabFolder/Tubi/tubiCollector.txt"
 
 java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiHomePage npx playwright codegen demo.playwright.dev/todomvc "$fileName"
 
-urls=`./tubiUrlStrip.sh "$fileName"`
+urls=`tubiUrlStrip "$fileName"`
 for a in ${urls[@]};
 do
  echo $a
- java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiCollector npx playwright codegen demo.playwright.dev/todomvc $a $fileName2; ./tubiCollector.sh $fileName2
+ java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiCollector npx playwright codegen demo.playwright.dev/todomvc $a $fileName2; tubiCollector $fileName2
 done
+
+function tubiUrlStrip()
+{
+	fileName="$1"
+	egrep -o "href=\"/category/[/a-z_^\"]+" $fileName | sed 's/href=//g' | awk '{system(" echo https://tubitv.com" $NF)}'
+}
+
+function tubiCollector()
+{
+	fileName="$1"
+	files=$(( egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName ))
+	#| awk '{system("./toUrl.sh " $NF)}'
+	for f in files
+	do
+		toUrl "$f"
+	done
+}
+
+function toUrl()
+{
+	url=$1
+	fileName="../../GrabFolder/Tubi/"`echo $url | egrep -o "/[^\/.*]*$" | sed 's/\///g'`.url
+	echo $fileName
+	echo [InternetShortcut] > $fileName
+	echo "URL="$url >> $fileName
+}
