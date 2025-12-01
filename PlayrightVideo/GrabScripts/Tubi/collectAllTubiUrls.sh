@@ -6,14 +6,17 @@ source ./java-class-path.sh
 fileName="../../GrabFolder/Tubi/tubiHomePage.txt"
 fileName2="../../GrabFolder/Tubi/tubiCollector.txt"
 
-java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiHomePage npx playwright codegen demo.playwright.dev/todomvc "$fileName"
+function run()
+{
+	java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiHomePage npx playwright codegen demo.playwright.dev/todomvc "$fileName"
 
-urls=`tubiUrlStrip "$fileName"`
-for a in ${urls[@]};
-do
- echo $a
- java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiCollector npx playwright codegen demo.playwright.dev/todomvc $a $fileName2; tubiCollector $fileName2
-done
+	urls=`tubiUrlStrip "$fileName"`
+	for a in ${urls[@]};
+	do
+	 echo $a
+	 java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiCollector npx playwright codegen demo.playwright.dev/todomvc $a $fileName2; tubiCollector $fileName2
+	done
+}
 
 function tubiUrlStrip()
 {
@@ -24,9 +27,9 @@ function tubiUrlStrip()
 function tubiCollector()
 {
 	fileName="$1"
-	files=$(( egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName ))
+	files=$(( `egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName` ))
 	#| awk '{system("./toUrl.sh " $NF)}'
-	for f in files
+	for f in ${files[@]}
 	do
 		toUrl "$f"
 	done
@@ -40,3 +43,5 @@ function toUrl()
 	echo [InternetShortcut] > $fileName
 	echo "URL="$url >> $fileName
 }
+
+run

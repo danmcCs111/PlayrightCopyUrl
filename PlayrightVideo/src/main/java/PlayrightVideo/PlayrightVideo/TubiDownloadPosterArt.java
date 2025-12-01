@@ -8,7 +8,6 @@ public class TubiDownloadPosterArt
 {
 	public static void main(String [] args)
 	{
-		
 		String
 			url = args[args.length-3],
 			screenShotPath = args[args.length-2],

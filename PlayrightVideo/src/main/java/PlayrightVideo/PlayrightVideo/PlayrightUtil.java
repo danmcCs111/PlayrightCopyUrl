@@ -12,6 +12,41 @@ import com.microsoft.playwright.options.AriaRole;
 
 public interface PlayrightUtil 
 {
+	public static int
+		PAGE_LOAD_WAIT = 3000,//TODO
+		PAGE_CLICK_WAIT = 1500,
+		PAGE_KEY_WAIT = 1500;
+	
+	public static Page navigateWithClass(Page page, String clazzText)
+	{
+		try {
+			page.wait(PAGE_LOAD_WAIT);
+			Locator loc2 = page.locator(clazzText);
+			loc2.click();
+			page.wait(PAGE_CLICK_WAIT);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		page.waitForLoadState();
+		
+		return page;
+	}
+	
+	public static Page navigateWithClickText(Page page, String text)
+	{
+		try {
+			page.wait(PAGE_LOAD_WAIT);
+			Locator loc2 = page.getByRole(AriaRole.BUTTON).getByText(text);
+			loc2.click();
+			page.wait(PAGE_CLICK_WAIT);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		page.waitForLoadState();
+		
+		return page;
+	}
+	
 	public static Page navigateAndReturnPage(Browser browser, String url)
     {
     	Page page = browser.newPage();
@@ -49,7 +84,7 @@ public interface PlayrightUtil
         	{
         		page.keyboard().press("PageDown");
         		try {
-        			page.wait(3000);
+        			page.wait(PAGE_KEY_WAIT);
         		} catch (InterruptedException e) {
         			e.printStackTrace();
         		}
@@ -71,7 +106,7 @@ public interface PlayrightUtil
         	{
         		page.keyboard().press("PageDown");
         		try {
-        			page.wait(3000);
+        			page.wait(PAGE_KEY_WAIT);
         		} catch (InterruptedException e) {
         			e.printStackTrace();
         		}

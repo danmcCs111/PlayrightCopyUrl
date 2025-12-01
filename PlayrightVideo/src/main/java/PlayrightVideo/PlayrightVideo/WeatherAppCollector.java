@@ -20,7 +20,7 @@ public class WeatherAppCollector
     	String [] latLong = ZipToGeoCode.collectCoordinates(zipCode);
     	url = url.replaceFirst("lat=&", "lat=" + latLong[0].strip() + "&");
     	url = url.replaceFirst("lon=&", "lon=" + latLong[1].strip() + "&");
-    	
+    	System.out.println(boolean.class);
         try (Playwright playwright = Playwright.create()) 
         {
         	LaunchOptions lo = new LaunchOptions();
