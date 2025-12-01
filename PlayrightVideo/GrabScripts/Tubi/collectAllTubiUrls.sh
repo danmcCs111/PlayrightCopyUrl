@@ -10,11 +10,14 @@ function run()
 {
 	java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiHomePage npx playwright codegen demo.playwright.dev/todomvc "$fileName"
 
-	urls=`tubiUrlStrip "$fileName"`
+	urls=(`tubiUrlStrip "$fileName"`)
+	array_count=${#urls[@]}
+	count=$(( 1 ))
 	for a in ${urls[@]};
 	do
-	 echo "category: " $a
+	 echo "category count: " $count " of " $array_count " category: " $a
 	 java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiCollector npx playwright codegen demo.playwright.dev/todomvc $a $fileName2; tubiCollector $fileName2
+	 count=$(( $count + 1 ))
 	done
 }
 
@@ -27,11 +30,9 @@ function tubiUrlStrip()
 function tubiCollector()
 {
 	fileName="$1"
-	files=`egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName`
-	#| awk '{system("./toUrl.sh " $NF)}'
+	files=(`egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName`)
 	for f in ${files[@]}
 	do
-		echo "file: " $a
 		toUrl "$f"
 	done
 }
