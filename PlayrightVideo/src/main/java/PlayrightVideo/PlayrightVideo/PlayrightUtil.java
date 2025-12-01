@@ -14,8 +14,8 @@ public interface PlayrightUtil
 {
 	public static int
 		PAGE_LOAD_WAIT = 3000,//TODO
-		PAGE_CLICK_WAIT = 1500,
-		PAGE_KEY_WAIT = 1500;
+		PAGE_CLICK_WAIT = 3000,
+		PAGE_KEY_WAIT = 1000;
 	
 	public static Page navigateWithClass(Page page, String clazzText)
 	{
@@ -102,7 +102,7 @@ public interface PlayrightUtil
         
         synchronized (page) 
         {
-        	for (int i = 0; i < 20; i++) 
+        	for (int i = 0; i < 15; i++) 
         	{
         		page.keyboard().press("PageDown");
         		try {
