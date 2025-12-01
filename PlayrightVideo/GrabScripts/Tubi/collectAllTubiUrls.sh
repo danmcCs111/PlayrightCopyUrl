@@ -13,7 +13,7 @@ function run()
 	urls=`tubiUrlStrip "$fileName"`
 	for a in ${urls[@]};
 	do
-	 echo $a
+	 echo "category: " $a
 	 java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiCollector npx playwright codegen demo.playwright.dev/todomvc $a $fileName2; tubiCollector $fileName2
 	done
 }
@@ -27,10 +27,11 @@ function tubiUrlStrip()
 function tubiCollector()
 {
 	fileName="$1"
-	files=$(( `egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName` ))
+	files=`egrep -o "tubitv.com/movies/[0-9]*/[^\".]*" $fileName`
 	#| awk '{system("./toUrl.sh " $NF)}'
 	for f in ${files[@]}
 	do
+		echo "file: " $a
 		toUrl "$f"
 	done
 }
