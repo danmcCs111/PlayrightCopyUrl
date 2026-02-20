@@ -1,7 +1,14 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-source ./java-class-path.sh
+typeOs=`uname`
+
+if [[ "$typeOs" == "Linux" ]]
+then
+	source ./java-class-path-linux.sh
+else
+	source ./java-class-path.sh
+fi
 
 fileName="../../GrabFolder/Tubi/tubiHomePage.txt"
 fileName2="../../GrabFolder/Tubi/tubiCollector.txt"

@@ -1,5 +1,12 @@
 #!/bin/bash
-source ./java-class-path.sh
+
+if [[ "$typeOs" == "Linux" ]]
+then
+	source ./java-class-path-linux.sh
+else
+	source ./java-class-path.sh
+fi
+
 fileName=$1
 fileNameTmp=$2
 mov=$3
