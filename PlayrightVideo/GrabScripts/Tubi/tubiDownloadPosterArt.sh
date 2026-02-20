@@ -1,5 +1,6 @@
 #!/bin/bash
 
+typeOs=`uname`
 if [[ "$typeOs" == "Linux" ]]
 then
 	source ./java-class-path-linux.sh
