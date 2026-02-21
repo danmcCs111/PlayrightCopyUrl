@@ -2,8 +2,8 @@
 
 cd "$(dirname "$0")"
 
-fileName="..\\..\\GrabFolder\\Tubi\\images\\"
-fileNameTmp="..\\..\\GrabFolder\\Tubi\\tmp\\"
+fileName="../../GrabFolder/Tubi/images/"
+fileNameTmp="../../GrabFolder/Tubi/tmp/"
 
 movies=`ls ../../GrabFolder/Tubi/*.url`
 
