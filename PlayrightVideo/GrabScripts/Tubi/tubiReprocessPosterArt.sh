@@ -2,9 +2,17 @@
 crDir=`pwd`
 cd "$(dirname "$0")"
 
+typeOs=`uname`
+if [[ "$typeOs" == "Linux" ]]
+then
+	fileName="../../GrabFolder/Tubi/images/"
+	fileNameTmp="../../GrabFolder/Tubi/tmp/"
+else
+	fileName="..\\..\\GrabFolder\\Tubi\\images\\"
+	fileNameTmp="..\\..\\GrabFolder\\Tubi\\tmp\\"
+fi
+
 movies=`diff  <(ls -1 ../../GrabFolder/Tubi/ | sed s/.url//g) <( ls -1 ../../GrabFolder/Tubi/images/ | sed s/.png//g) | egrep "^<|^>" | sed "s/[<>]//g"`
-fileName="../../GrabFolder/Tubi/images/"
-fileNameTmp="../../GrabFolder/Tubi/tmp/"
 
 
 count=1

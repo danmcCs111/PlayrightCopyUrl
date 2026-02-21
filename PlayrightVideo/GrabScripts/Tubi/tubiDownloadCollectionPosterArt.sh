@@ -2,8 +2,15 @@
 
 cd "$(dirname "$0")"
 
-fileName="../../GrabFolder/Tubi/images/"
-fileNameTmp="../../GrabFolder/Tubi/tmp/"
+typeOs=`uname`
+if [[ "$typeOs" == "Linux" ]]
+then
+	fileName="../../GrabFolder/Tubi/images/"
+	fileNameTmp="../../GrabFolder/Tubi/tmp/"
+else
+	fileName="..\\..\\GrabFolder\\Tubi\\images\\"
+	fileNameTmp="..\\..\\GrabFolder\\Tubi\\tmp\\"
+fi
 
 movies=`ls ../../GrabFolder/Tubi/*.url`
 
