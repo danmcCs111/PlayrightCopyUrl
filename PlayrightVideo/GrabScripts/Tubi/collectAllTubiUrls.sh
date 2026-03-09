@@ -46,4 +46,5 @@ function toUrl()
 	echo "URL="$url >> $fileName
 }
 
+rm ../../GrabFolder/Tubi/*.url
 run
