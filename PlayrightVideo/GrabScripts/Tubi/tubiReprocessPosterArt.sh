@@ -12,18 +12,18 @@ else
 	fileNameTmp="..\\..\\GrabFolder\\Tubi\\tmp\\"
 fi
 
-movies=`diff  <(ls -1 ../../GrabFolder/Tubi/ | sed s/.url//g) <( ls -1 ../../GrabFolder/Tubi/images/ | sed s/.png//g) | egrep "^<" | egrep "^<|^>" | sed "s/[<>]//g"`
+movies=`diff  <(ls -1 ../../GrabFolder/Tubi/*.url | sed 's/..\/..\/GrabFolder\/Tubi\///g' | sed s/.url//g) <( ls -1 ../../GrabFolder/Tubi/images/*.png | sed 's/..\/..\/GrabFolder\/Tubi\/images\///g' | sed s/.png//g) | egrep "^<" | egrep "^<|^>" | sed "s/[<>]//g"`
 
 
 count=1
-paralellCount=6
+paralellCount=3
 for mov in ${movies[@]}; 
 do
 	mov=$mov".url"
 	echo $mov
 	if [ $(expr $count % $paralellCount) -eq 0 ]
 	then
-		sleep 10
+		sleep 3
 	else
 	./tubiDownloadPosterArt.sh $fileName $fileNameTmp $mov&
 	fi
