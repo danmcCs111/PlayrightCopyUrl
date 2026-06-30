@@ -8,7 +8,7 @@ fileName2="../../GrabFolder/Tubi/tubiCollector.txt"
 
 function run()
 {
-	java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.TubiHomePage npx playwright codegen demo.playwright.dev/todomvc "$fileName"
+	java -cp "$java_playright_cp" PlayrightVideo.PlayrightVideo.WeatherAppCollector npx playwright codegen demo.playwright.dev/todomvc "$fileName"
 
 	urls=(`tubiUrlStrip "$fileName"`)
 	array_count=${#urls[@]}
