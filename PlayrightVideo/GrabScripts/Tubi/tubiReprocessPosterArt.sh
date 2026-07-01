@@ -24,7 +24,7 @@ do
 	if [ $(expr $count % $parallelCount) -eq 0 ]
 	then
 		echo "remaining: " $(( $count )) "/" $total_count
-		sleep 6
+		sleep 9
 	else
 		./tubiDownloadPosterArt.sh $fileName $fileNameTmp $mov&
 	fi
